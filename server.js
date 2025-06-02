@@ -48,4 +48,12 @@ app.delete('/products/:id', (req, res) => {
   res.json({ message: 'Product deleted' });
 });
 
+// Search products by name
+app.get('/products/search', (req, res) => {
+  const query = req.query.name?.toLowerCase();
+  if (!query) return res.status(400).json({ message: 'Query parameter "name" is required' });
+  const results = products.filter(p => p.name.toLowerCase().includes(query));
+  res.json(results);
+});
+
 app.listen(3000, () => console.log('Server running on port 3000'));
