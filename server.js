@@ -48,4 +48,12 @@ app.delete('/products/:id', (req, res) => {
   res.json({ message: 'Product deleted' });
 });
 
+// Filter products by price range
+app.get('/products/filter', (req, res) => {
+  const minPrice = parseFloat(req.query.minPrice) || 0;
+  const maxPrice = parseFloat(req.query.maxPrice) || Infinity;
+  const results = products.filter(p => p.price >= minPrice && p.price <= maxPrice);
+  res.json(results);
+});
+
 app.listen(3000, () => console.log('Server running on port 3000'));
