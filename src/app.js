@@ -12,7 +12,10 @@ app.use('/categories', categoriesRouter);
 
 // Home route
 app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to Product API', version: '2.0.0' });
+  res.json({
+    message: 'Welcome to Product API',
+    version: '2.0.0 (feature/category branch)',
+  });
 });
 
 module.exports = app;
