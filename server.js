@@ -2,11 +2,7 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 
-// In-memory data store
-let products = [
-  { id: 1, name: 'Laptop', price: 1000 },
-  { id: 2, name: 'Phone', price: 500 },
-];
+
 
 // GET all products
 app.get('/products', (req, res) => {
