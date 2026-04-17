@@ -10,7 +10,10 @@ app.use('/products', productsRouter);
 
 // Home route
 app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to Product API', version: '1.0.0' });
+  res.json({
+    message: 'Welcome to Product API',
+    version: '1.5.0 (main branch)',
+  });
 });
 
 module.exports = app;
