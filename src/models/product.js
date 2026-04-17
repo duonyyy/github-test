@@ -1,26 +1,33 @@
 // In-memory data store
 let products = [
-  { id: 1, name: 'Laptop', price: 1000 },
-  { id: 2, name: 'Phone', price: 500 },
+  { id: 1, name: 'Laptop', price: 1000, category: 'Electronics' },
+  { id: 2, name: 'Phone', price: 500, category: 'Electronics' },
+];
+
+let categories = [
+  { id: 1, name: 'Electronics', description: 'Electronic devices' },
+  { id: 2, name: 'Accessories', description: 'Product accessories' },
 ];
 
 module.exports = {
   getAllProducts: () => products,
   getProductById: (id) => products.find((p) => p.id === parseInt(id)),
-  createProduct: (name, price) => {
+  createProduct: (name, price, category) => {
     const product = {
       id: Math.max(...products.map((p) => p.id), 0) + 1,
       name,
       price,
+      category,
     };
     products.push(product);
     return product;
   },
-  updateProduct: (id, name, price) => {
+  updateProduct: (id, name, price, category) => {
     const product = products.find((p) => p.id === parseInt(id));
     if (!product) return null;
     product.name = name || product.name;
     product.price = price || product.price;
+    product.category = category || product.category;
     return product;
   },
   deleteProduct: (id) => {
@@ -87,5 +94,35 @@ module.exports = {
       minPrice: Math.min(...prices),
       maxPrice: Math.max(...prices),
     };
+  },
+  // Category functions
+  getAllCategories: () => categories,
+  getCategoryById: (id) => categories.find((c) => c.id === parseInt(id)),
+  createCategory: (name, description) => {
+    const category = {
+      id: Math.max(...categories.map((c) => c.id), 0) + 1,
+      name,
+      description,
+    };
+    categories.push(category);
+    return category;
+  },
+  updateCategory: (id, name, description) => {
+    const category = categories.find((c) => c.id === parseInt(id));
+    if (!category) return null;
+    category.name = name || category.name;
+    category.description = description || category.description;
+    return category;
+  },
+  deleteCategory: (id) => {
+    const index = categories.findIndex((c) => c.id === parseInt(id));
+    if (index === -1) return null;
+    const deleted = categories.splice(index, 1);
+    return deleted[0];
+  },
+  getProductsByCategory: (categoryName) => {
+    return products.filter((p) =>
+      p.category.toLowerCase().includes(categoryName.toLowerCase())
+    );
   },
 };

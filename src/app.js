@@ -6,11 +6,13 @@ app.use(express.json());
 
 // Routes
 const productsRouter = require('./routes/products');
+const categoriesRouter = require('./routes/categories');
 app.use('/products', productsRouter);
+app.use('/categories', categoriesRouter);
 
 // Home route
 app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to Product API', version: '1.0.0' });
+  res.json({ message: 'Welcome to Product API', version: '2.0.0' });
 });
 
 module.exports = app;

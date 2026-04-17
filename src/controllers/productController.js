@@ -18,11 +18,15 @@ module.exports = {
 
   // POST new product
   create: (req, res) => {
-    const { name, price } = req.body;
+    const { name, price, category } = req.body;
     if (!name || !price) {
       return res.status(400).json({ message: 'Name and price are required' });
     }
-    const product = Product.createProduct(name, price);
+    const product = Product.createProduct(
+      name,
+      price,
+      category || 'Uncategorized'
+    );
     res.status(201).json(product);
   },
 
@@ -31,7 +35,8 @@ module.exports = {
     const product = Product.updateProduct(
       req.params.id,
       req.body.name,
-      req.body.price
+      req.body.price,
+      req.body.category
     );
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
